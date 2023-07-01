@@ -1,0 +1,23 @@
+{% load static %}
+<header>
+    <h1>
+        EVENT.
+    </h1>
+    <div>
+        
+        {% if request.user.is_authenticated %}
+           <a href="#" class="login"> <p>{{ user.username }}</p></a>
+            <a href="{% url 'users:logout' %}" class="login"> Logout </a>
+        {% else %}
+            <a href="{% url 'users:login' %}" class="login"> Login </a>
+        {% endif %}
+       
+
+    <div>
+    <div id="hamburger-icon">
+        <img
+            src="{% static './images/icons/hamburger.svg' %}"
+            alt="Hamburger"
+        />
+    </div>
+</header>

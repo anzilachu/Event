@@ -1,0 +1,162 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+    <section id="single-page-home">
+        <section class="wrapper">         
+           {% include 'web/includes/header.html' %}
+            <section class="single-page-spotlight">
+                <h3 class="title">
+                    {{instances.title}}
+                </h3>
+                <p class="description">
+                    {{instances.short_description}}
+                </p>
+                <h2>Location : {{instances.district}} </h2><br><br>
+                <div class="post-thumbnail">
+                    <img src="{{instances.featured_image.url}}" alt="Post-thumbnail" >
+                </div>
+                <div class="gallery1">
+                    <div class="top"><h2>Our Works</h2></div>
+                    <div class="bottom">
+                    <img src="{{instances.image1.url}}" alt="image1" />
+                    <img src="{{instances.image2.url}}" alt="image2" />
+                    <img src="{{instances.image3.url}}" alt="image3" />
+                    <img src="{{instances.image4.url}}" alt="image4" />
+                    </div>
+                </div>
+                <section class="service" id="service">
+
+                    <h1 class="heading"> our <span>services</span> </h1>
+                
+                    <div class="box-container">
+                
+                        <div class="box">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>venue selection</h3>
+                            <p>Venue selection is a critical aspect of event management,
+                                as it can impact the success of the event.
+                                Factors such as location, capacity, amenities, and cost must be considered
+                                in order to choose the best venue that meets the needs and objectives of the event.</p>
+                        </div>
+                
+                        <div class="box">
+                            <i class="fas fa-envelope"></i>
+                            <h3>invitation card</h3>
+                            <p>Invitation cards are an essential element of event management,
+                                as they convey important information and set the tone for the event.
+                                The design, wording, and format of the invitation card must be carefully crafted
+                                to reflect the style and purpose of the event, and to make a lasting impression on the guests./p>
+                        </div>
+                
+                        <div class="box">
+                            <i class="fas fa-music"></i>
+                            <h3>entertainment</h3>
+                            <p>Entertainment is a key component of event management,
+                                as it can help create a memorable and enjoyable experience for attendees.
+                                The type of entertainment chosen must align with the theme and audience of the event,
+                                and can include live music, performers, games, or interactive activities.</p>
+                        </div>
+                
+                        <div class="box">
+                            <i class="fas fa-utensils"></i>
+                            <h3>food and drinks</h3>
+                            <p>Food and drinks are an important aspect of event management,
+                                as they can greatly enhance the guest experience and satisfaction.
+                                The menu should be carefully planned to accommodate any dietary restrictions,
+                                and the presentation and quality of the food and drinks should be top-notch to leave a lasting impression.</p>
+                        </div>
+                
+                        <div class="box">
+                            <i class="fas fa-photo-video"></i>
+                            <h3>photos and videos</h3>
+                            <p>Photos and videos are a crucial part of event management,
+                                as they capture the highlights and essence of the event for future reference.
+                                Professional photographers and videographers can be hired to capture the event,
+                                and the resulting footage can be used for marketing, social media, and as a memento for attendees..</p>
+                        </div>
+                
+                        <div class="box">
+                            <i class="fas fa-birthday-cake"></i>
+                            <h3>custom food</h3>
+                            <p>Custom food is a unique and personalized aspect of event management,
+                                which can be tailored to the specific needs and preferences of the event and its attendees..</p>
+                        </div>
+                
+                    </div>
+                
+                </section>
+                <section class="price" id="price">
+
+                    <h1 class="heading"> our <span>price</span> </h1>
+                
+                    <div class="box-container">
+                
+                        <div class="box">
+                            <h3 class="title">Celebration starts here</h3>
+                            <h3 class="amount">₹{{instances.price}}</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i>full services</li>
+                                <li> <i class="fas fa-check"></i> decorations </li>
+                                <li> <i class="fas fa-check"></i> music and photos </li>
+                                <li> <i class="fas fa-check"></i> food and drinks </li>
+                                <li> <i class="fas fa-check"></i> invitation card </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    </section>
+                
+                
+                <div class="details">
+                    <ul class="social">
+                        <li class="social-media">
+                            <a target="_blank" href="https://twitter.com/intent/tweet?text={{request.build_absolute_url}}">
+                                <img src="{% static 'images/icons/twitter.svg' %}" alt="Twitter" />
+                            </a>
+                        </li>
+
+                        <li class="social-media">
+                            <a target="_blank" href="https://www.facebook.com/sharer.php?u={{request.build_absolute_url}}">
+                                <img src="{% static 'images/icons/facebook.svg' %}" alt="Facebook" />
+                            </a>
+                        </li>
+                        <li class="social-media">
+                            <a target="_blank" href="https://api.whatsapp.com/send/?text={{request.build_absolute_url}}">
+                                <img src="{% static 'images/icons/whatsapp.svg' %}" alt="Linked-in" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="form">
+                    <form action="{% url 'posts:subscribe' id=instances.id  %}" method="post" class="ajax reload" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div>
+                          <label for="{{subscribe.email.id_for_label}}" class="subheads" >
+                            {{subscribe.email.label}}
+                        </label>
+                          {{subscribe.email}}
+                          <label for="{{subscribe.book_date.id_for_label}}" class="subheads" >
+                            {{subscribe.book_date.label}}
+                        </label>
+                          {{subscribe.book_date}}
+                        </div>
+                        
+                        <button id="book-event-button" type="submit">Book your event</button>
+                        <!-- <script>
+                            document.getElementById("book-event-button").addEventListener("click",function(){
+                            alert("Successfully booked your event")
+                         });
+                        </script> -->
+                      </form>
+                      <h1>Already booked Dates</h1>
+                      {% for dates in date %}
+                      <h1>{{dates.post.title}},{{dates.book_date}}</h1>
+                      <h1></h1>
+                      <!-- <h1>{{dates.email}}</h1> -->
+                      {% endfor %}
+                    </div>
+                </div>
+                </section>
+        </section>
+    </section>
+
+{% endblock %}

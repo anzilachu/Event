@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load paginator_tags %}
+<section class="event">
+<h3>Events</h3>
+      <div class="filtersection" id="hamburger-menu">
+        <form action="">
+          <input type="text" name="q" placeholder="Search your event team..." />
+        </form>
+      </div>
+      <div class="all-posts">
+        <div class="post-section">
+          <ul class="posts">
+            {% for post in instances %}
+            <li>
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'web:post' id=post.id %}">
+              {% else %}
+              <a href="{% url 'users:login' %}" class="login">
+              {% endif %}
+                <div class="blog-image">
+                  <img src="{{post.featured_image.url}}" alt="Blog" />
+                </div>
+                <div class="details">
+                  <div class="date">
+                    <h4 class="name">{{post.author.name}}</h4>
+                    <div class="round"></div>
+                    <span> {{post.published_date}}</span>
+                  </div>
+                  <h3 class="head">{{post.title}}</h3>
+            </li>
+            {% endfor %}
+          </ul>
+          {% load_pagination instances %}
+        </div>
+      </div>
+    </section>
+    {% endblock %}
